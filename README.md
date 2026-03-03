@@ -8,7 +8,11 @@ It is to spot deep fakes using a past trained data set + also let users send in 
 
 One Shot AI face creation will be used so the user only will need to send in a certain amount of pictures, and then will use the technology to create many other versions of their face hopefully to make it easier to catch if the face is similar.
 
-One Shot face Creation or Recognition not currently sure about it,
+One Shot face Creation or Recognition not currently sure about it.
+
+
+**Info:**
+Requirements.txt will contain all the packages needed to be installed.
 
 
 General Pipeline:
@@ -37,7 +41,7 @@ General Pipeline:
           ┌───────────┴───────────┐
           ↓                       ↓
 ┌─────────────────┐     ┌─────────────────────┐
-│  EFFICIENTNET   │     │       ARCFACE        │
+│ EFFICIENTNET V2 │     │       ARCFACE        │
 │                 │     │                      │
 │ Classifies each │     │ Converts each face   │
 │ face as real or │     │ into a 512-dim       │
@@ -109,7 +113,7 @@ General Pipeline:
 |---|---|---|
 | API layer | FastAPI | Exposes all functionality via REST endpoints |
 | Face detection | RetinaFace (InsightFace) | Locates and crops all faces in an image |
-| Deepfake classifier | EfficientNet (PyTorch) | Classifies faces as real or manipulated |
+| Deepfake classifier | EfficientNet V2 (PyTorch) | Classifies faces as real or manipulated |
 | Training dataset | FaceForensics++ | Labelled real/fake face data for fine-tuning |
 | Explainability | Grad-CAM | Heatmaps showing which regions triggered detection |
 | Face embedding | ArcFace (InsightFace) | Converts faces into 512-dim identity vectors |
@@ -117,9 +121,16 @@ General Pipeline:
 | Face blurring | OpenCV | Applies blur to matched faces in output image |
 
 
-
-Compare why Retina Face instead of other versions like YOLO (face trained version) or the older MTCNN face detection
-Compare Why ArcFace instead of other versions like DeepFace or the older version FaceNet
-
+### Things that I can write about in report:
+- Compare why Retina Face instead of other versions like YOLO (face trained version) or the older MTCNN face detection
+- Compare Why ArcFace instead of other versions like DeepFace or the older version FaceNet
+- Why EfficientNEt instead of training model from scratch or other methods
+- EfficientNet vs EfficientNet v2
+- What model version of EfficientNet am using and why
 
 **Would Like to try manuualy code all of these things but for now use pre build**
+
+
+### For training efficientNet for detecting deepfaked images
+1) Installed cuda tools (specific needed ones as wsl2 was having issues with some of them)
+2) installed pytorch
