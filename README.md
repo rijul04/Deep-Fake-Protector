@@ -127,6 +127,8 @@ General Pipeline:
 - Why EfficientNEt instead of training model from scratch or other methods
 - EfficientNet vs EfficientNet v2
 - What model version of EfficientNet am using and why
+- Why train using FaceForensics++
+- Why store images as jpg and say not png for deep fake training dataset
 
 **Would Like to try manuualy code all of these things but for now use pre build**
 
@@ -134,3 +136,6 @@ General Pipeline:
 ### For training efficientNet for detecting deepfaked images
 1) Installed cuda tools (specific needed ones as wsl2 was having issues with some of them)
 2) installed pytorch
+3) Went through pytorch tutorials about it where htye have the link to the paper of EfficientNet too
+4) Watched https://www.youtube.com/watch?v=fR_0o25kigM&list=PLYjC48VOfl4nAw2-_lgmqIYxxKGCbsoJq&index=2
+5) Tuned on data from FaceForensics++: https://github.com/ondyari/FaceForensics which first had to download from there data set after requesting access, they sent a script which can be seen in ./download_faceforensics.py which downloaded from EU2 server, where downloading the original and deepfakes dataset from it, comes as video so need to convert to images which I did though extract_frames.py

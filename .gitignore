@@ -2,4 +2,8 @@
 venv/
 .venv/
 
+*.jpg
+*.jpeg
+*.mp4
+
 deepfake_protector_guide.pdf
