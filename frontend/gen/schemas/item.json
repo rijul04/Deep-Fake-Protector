@@ -1,0 +1,1 @@
+{"properties":{"name":{"type":"string","title":"Name"},"price":{"type":"number","title":"Price"},"is_offer":{"anyOf":[{"type":"boolean"},{"type":"null"}],"title":"Is Offer"}},"type":"object","required":["name","price"],"title":"Item","x-readme-ref-name":"Item"}

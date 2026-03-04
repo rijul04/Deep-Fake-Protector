@@ -1,0 +1,5 @@
+# There is a lot i need to add here will add from what am doing now but will have to go back to make sure rest is added here
+# fastAPI - standard - which i think installs dependencies like ones from starlette
+# Next altho i think diff files for each package for requirements shld be needed / used or at least backend / frontend diff ones
+# Kubb for frontend
+#  Reach Hook Form for frontend

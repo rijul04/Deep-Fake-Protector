@@ -130,6 +130,7 @@ General Pipeline:
 - Why train using FaceForensics++
 - Why store images as jpg and say not png for deep fake training dataset
 - WHy certain things used in EfficientNet like what type of optimizer and loss algorithm
+- THings added to the EfficientNet Tuning file to make it quicker / more efificient which in turn lets me use better models such as M instead of S EfficientNet
 
 **Would Like to try manuualy code all of these things but for now use pre build**
 
@@ -141,3 +142,11 @@ General Pipeline:
 4) Watched https://www.youtube.com/watch?v=fR_0o25kigM&list=PLYjC48VOfl4nAw2-_lgmqIYxxKGCbsoJq&index=2
 5) Tuned on data from FaceForensics++: https://github.com/ondyari/FaceForensics which first had to download from there data set after requesting access, they sent a script which can be seen in ./download_faceforensics.py which downloaded from EU2 server, where downloading the original and deepfakes dataset from it, comes as video so need to convert to images which I did though extract_frames.py
 6) Tuning using EfficientNet_Tuning.py uses EfficientNetv2-M
+7) Was being very slow so had to change things like change models to s version from m and edit amount of ram / processes wsl2 could access
+8) Need To improve the Tuning as things such as validation step was not added
+9) Currently gives wrong answers for the ones i make from online tools
+10) If possible also use face2face dataset from faceforensics too as transfers facial expressions from one face to another
+
+<!-- Setting Up FastAPI -->
+1) Setting up to get to work with DeepFakeAnalysis
+2) Setting up basic version just a get endpoint with no protection or anything special

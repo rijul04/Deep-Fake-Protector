@@ -7,3 +7,79 @@ venv/
 *.mp4
 
 deepfake_protector_guide.pdf
+
+# For Frontend Below:
+
+# Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# env files
+frontend/.env*
+
+# Backend:
+
+# ======================
+# Python cache
+# ======================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ======================
+# Virtual environments
+# ======================
+venv/
+.venv/
+env/
+
+# ======================
+# Environment variables
+# ======================
+.env
+.env.*
+
+# ======================
+# Logs
+# ======================
+*.log
+
+# ======================
+# Testing / coverage
+# ======================
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
+
+# ======================
+# OS files
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# Editor files
+# ======================
+.vscode/
+.idea/
+
+# ======================
+# Python packaging
+# ======================
+build/
+dist/
+*.egg-info/
+
+# ======================
+# ML models (optional)
+# ======================
+*.pt
+*.pth
+*.ckpt
+
+# datasets
+data/
+datasets/
