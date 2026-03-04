@@ -150,3 +150,9 @@ General Pipeline:
 <!-- Setting Up FastAPI -->
 1) Setting up to get to work with DeepFakeAnalysis
 2) Setting up basic version just a get endpoint with no protection or anything special
+
+<!-- Setting up frontend -->
+1) next isntall, kubb install, and other things from kubb
+2) designing frontend design using figma
+3) Using Lucide React for icons
+4) Using FilePond for form designs to look better / Using amplify fo rfile upload component
