@@ -52,6 +52,8 @@ from fastapi import FastAPI, File, UploadFile
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
+    print("TEst")
+    print(type(file))
     prediction = predictv2(file.file)
     return {"filename": file.filename, "prediction": prediction}
 

@@ -146,6 +146,7 @@ General Pipeline:
 8) Need To improve the Tuning as things such as validation step was not added
 9) Currently gives wrong answers for the ones i make from online tools
 10) If possible also use face2face dataset from faceforensics too as transfers facial expressions from one face to another
+11) Maybe for training and evaluation need to use something that grabs just the face, unless whole image is usefull need to research!!!!!
 
 <!-- Setting Up FastAPI -->
 1) Setting up to get to work with DeepFakeAnalysis

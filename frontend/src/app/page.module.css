@@ -9,7 +9,7 @@
 .main {
   width: 100vw;
   height: 100vh;
-  /* background-image: linear-gradient(to bottom right, rgb(15 23 42), rgb(74, 20, 140)); */
+  background-image: linear-gradient(to bottom right, rgb(15 23 42), rgb(74, 20, 140));
   padding-top: 5%;
 
   display: flex;
