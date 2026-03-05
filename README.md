@@ -165,3 +165,7 @@ General Pipeline:
 1) Using Insight face as has both RetinaFacec and ArcFace
 2) Has info of training your own models look into this if get to a point of doing from scratch
 3) Using RetinaFace for predicting deepfake even wioth version 0 has increased acuracy
+
+
+
+Going to see if after Efficient Net I can just directly blur the images using openCV2

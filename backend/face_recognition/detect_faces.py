@@ -25,3 +25,19 @@ def detect_faces(img: cv2.typing.MatLike):
     return faces_list
 
 #  Make func that returns the whole meta data used for getting bbox data
+def detect_faces_with_metadata(img: cv2.typing.MatLike):
+
+    faces = app.get(img)
+
+    faces_list = []
+
+    for face in faces:
+        x1, y1, x2, y2 = face.bbox.astype(int)
+        cropped_img = img[y1:y2, x1:x2]
+
+        if cropped_img.size == 0:
+            continue
+
+        faces_list.append({"image": cropped_img, "metadata": face})
+    
+    return faces_list
