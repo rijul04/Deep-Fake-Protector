@@ -131,6 +131,8 @@ General Pipeline:
 - Why store images as jpg and say not png for deep fake training dataset
 - WHy certain things used in EfficientNet like what type of optimizer and loss algorithm
 - THings added to the EfficientNet Tuning file to make it quicker / more efificient which in turn lets me use better models such as M instead of S EfficientNet
+- How FaceForensics seems to generally use older pipelines for deep faking so more obvious in the sense of more artifacts and so on so is fine for baseline but will need to change it and can compare versions and data sets and so on
+- Using croped face images or full iamges for training and  why
 
 **Would Like to try manuualy code all of these things but for now use pre build**
 
@@ -146,7 +148,8 @@ General Pipeline:
 8) Need To improve the Tuning as things such as validation step was not added
 9) Currently gives wrong answers for the ones i make from online tools
 10) If possible also use face2face dataset from faceforensics too as transfers facial expressions from one face to another
-11) Maybe for training and evaluation need to use something that grabs just the face, unless whole image is usefull need to research!!!!!
+11) Maybe for training and evaluation need to use something that grabs just the face, unless whole image is usefull need to research!!!!! (Step 10 from pdf file plot confusion matrix and so on of current modedl and future ones)
+12) Have just now used RetinaFace to take the faces of people from the frames which is to be trained for next model for deep fake analysis
 
 <!-- Setting Up FastAPI -->
 1) Setting up to get to work with DeepFakeAnalysis
@@ -157,3 +160,8 @@ General Pipeline:
 2) designing frontend design using figma
 3) Using Lucide React for icons
 4) Using FilePond for form designs to look better / Using amplify fo rfile upload component
+
+<!-- Setting up retina face -->
+1) Using Insight face as has both RetinaFacec and ArcFace
+2) Has info of training your own models look into this if get to a point of doing from scratch
+3) Using RetinaFace for predicting deepfake even wioth version 0 has increased acuracy

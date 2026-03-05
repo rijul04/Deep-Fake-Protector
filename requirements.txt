@@ -6,3 +6,4 @@
 # Lucide React for frontend Icons
 # ChakraUI for frontend form designs
 # FilePond for frontend fileUpload component
+# InsightFace for face_recognition = RetinaFace + ArcFace

@@ -1,3 +1,4 @@
+import cv2
 import torch
 from torchvision import transforms, models
 from torch import nn
@@ -43,11 +44,9 @@ def predict(image_path):
     print(f"Confidence : {probs[0][pred].item() * 100:.1f}%")
     print(f"Real: {probs[0][1].item()*100:.1f}%  |  Fake: {probs[0][0].item()*100:.1f}%")
 
-def predictv2(image):
-    image.seek(0)
-    img = Image.open(image).convert("RGB")
-
-    tensor = transform(img).unsqueeze(0).to(device)  # add batch dimension
+def predictv2(image: cv2.typing.MatLike):
+    pil_image = Image.fromarray(image)
+    tensor = transform(pil_image).unsqueeze(0).to(device)  # add batch dimension
 
     with torch.no_grad():
         outputs = model(tensor)
