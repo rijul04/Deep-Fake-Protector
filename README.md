@@ -176,3 +176,6 @@ Going to see if after Efficient Net I can just directly blur the images using op
 1) Custom making blurring using box kernal
 2) did through using 3 x 3 kernal but didnt want to make kernal larger so did downscale/upscale hack to try blurr it a lot more efficiently and i think (am not sure) means much harder to revert into the face before
 3) Need to fix
+
+<!-- Setting up ArcFace -->
+1) Identity Vectors to be stored so will use SQLITE for now but make sure to get dev ready stuff so use an actual cloud storage platform
