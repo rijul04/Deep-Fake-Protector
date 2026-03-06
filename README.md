@@ -133,6 +133,7 @@ General Pipeline:
 - THings added to the EfficientNet Tuning file to make it quicker / more efificient which in turn lets me use better models such as M instead of S EfficientNet
 - How FaceForensics seems to generally use older pipelines for deep faking so more obvious in the sense of more artifacts and so on so is fine for baseline but will need to change it and can compare versions and data sets and so on
 - Using croped face images or full iamges for training and  why
+- Different Blur methods (if my method better than generic ones like np/cv2 ones)
 
 **Would Like to try manuualy code all of these things but for now use pre build**
 
@@ -169,3 +170,9 @@ General Pipeline:
 
 
 Going to see if after Efficient Net I can just directly blur the images using openCV2
+
+
+<!-- Setting up blurring -->
+1) Custom making blurring using box kernal
+2) did through using 3 x 3 kernal but didnt want to make kernal larger so did downscale/upscale hack to try blurr it a lot more efficiently and i think (am not sure) means much harder to revert into the face before
+3) Need to fix

@@ -1,4 +1,5 @@
-from typing import Literal
+import base64
+from typing import List, Literal
 
 import cv2
 from fastapi import FastAPI, Response
@@ -6,6 +7,7 @@ import numpy as np
 from pydantic import BaseModel
 from face_recognition.detect_faces import detect_faces, detect_faces_with_metadata
 from deep_fake_analysis.predict import predictv2
+from fastapi.responses import FileResponse
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -36,17 +38,6 @@ class Prediction():
 def read_root():
     return {"Hello": "World"}
 
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
-
-
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
-
-
 # Source - https://stackoverflow.com/a/68287488
 # Posted by fchancel
 # Retrieved 2026-03-04, License - CC BY-SA 4.0
@@ -67,8 +58,8 @@ async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", fil
 
         faces = [cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB) for image_bgr in cv2_faces]
 
-        prediction = predictv2(faces[0])
-        return {"filename": file.filename, "prediction": prediction}
+        predictions = predictv2(faces[0])
+        return {"filename": file.filename, "predictions": predictions}
     elif retType == "BLURRED":
         
         faces_with_metadata = detect_faces_with_metadata(cv2_img)
@@ -78,11 +69,19 @@ async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", fil
 
         # breakpoint()
 
-        prediction = [{"prediction": predictv2(fwmd["image"]), "metadata": clean_metadata(fwmd["metadata"])} for fwmd in faces]
+        predictions = [{"prediction": predictv2(fwmd["image"]), "metadata": clean_metadata(fwmd["metadata"])} for fwmd in faces]
 
-        print(faces[0]["image"])
+        positive_predictions = [prediction for prediction in predictions if prediction["prediction"]["prediction"] == "FAKE"]
 
-        return prediction
+        img_copy = cv2_img.copy()
+        for prediction in positive_predictions:
+            img_copy = blur(img_copy, prediction["metadata"]["bbox"])
+
+        _, encoded_img = cv2.imencode('.PNG', img_copy)
+
+        encoded_img = base64.b64encode(encoded_img)
+
+        return {"predictions": predictions, "image": encoded_img}
 
 
 # helper func to clean passed back meta data to allow the dict to become json seriable
@@ -95,42 +94,63 @@ def clean_metadata(metadata):
     return cleaned_metadata
 
 
-def blur(img: cv2.typing.MatLike):
+
+# blurred stuff below need to fully fix but is custom made
+def blur(img: cv2.typing.MatLike, bbox: List | None = None):
     guassian_blur_filter = np.array(
-        [[1, 2, 1],
-        [2, 4, 2],
-        [1, 2, 1]]
+        [[1, 1, 1],
+        [1, 1, 1],
+        [1, 1, 1]]
     )
 
-    blurred_img = img
 
-    for h in range(1, img.shape[0]-1):
-        for w in range(1, img.shape[1]-1):
-            top_left = img[h-1][w-1]
-            top_middle = img[h-1][w]
-            top_right = img[h-1][w+1]
+    RESCALE_FACTOR = 20
+    
+    resized_img = cv2.resize(img, (img.shape[1] // RESCALE_FACTOR, img.shape[0] // RESCALE_FACTOR))
+    blurred_img = np.zeros((resized_img.shape[0], resized_img.shape[1], resized_img.shape[2]), dtype=np.uint8) if bbox is not None else resized_img.copy()
 
-            middle_left = img[h][w-1]
-            middle_middle = img[h][w]
-            middle_right = img[h][w+1]
+    H_RANGE_START = int(bbox[1]) // RESCALE_FACTOR if bbox is not None else 1
+    H_RANGE_END = int(bbox[3]) // RESCALE_FACTOR if bbox is not None else resized_img.shape[0]-1
 
-            bottom_left = img[h+1][w-1]
-            bottom_middle = img[h+1][w]
-            bottom_right = img[h+1][w+1]
+    W_RANGE_START = int(bbox[0]) // RESCALE_FACTOR if bbox is not None else 1
+    W_RANGE_END = int(bbox[2]) // RESCALE_FACTOR if bbox is not None else resized_img.shape[1]-1
 
-            specificImg = np.array = (
-                [top_left, top_middle, top_right],
+    for h in range(H_RANGE_START, H_RANGE_END):
+        for w in range(W_RANGE_START, W_RANGE_END):
+
+            top_left = resized_img[h-1][w-1]
+            top_middle = resized_img[h-1][w]
+            top_right = resized_img[h-1][w+1]
+
+            middle_left = resized_img[h][w-1]
+            middle_middle = resized_img[h][w]
+            middle_right = resized_img[h][w+1]
+
+            bottom_left = resized_img[h+1][w-1]
+            bottom_middle = resized_img[h+1][w]
+            bottom_right = resized_img[h+1][w+1]
+
+            specificImg = np.array(
+                [[top_left, top_middle, top_right],
                 [middle_left, middle_middle, middle_right],
-                [bottom_left, bottom_middle, bottom_right]
+                [bottom_left, bottom_middle, bottom_right]]
             )
 
-            multipliedImg = specificImg * guassian_blur_filter
 
-            filtered_point = int(np.sum(multipliedImg) / guassian_blur_filter.size) # will possobily need normalising and so on for this
+            filtered_point = np.sum(specificImg * guassian_blur_filter[:, :, None], axis=(0,1)) / np.sum(guassian_blur_filter) # will possobily need normalising and so on for this
 
             blurred_img[h][w] = filtered_point
+        
+    upscaled_img = cv2.resize(blurred_img, (img.shape[1], img.shape[0]))
     
-    return blurred_img
 
+    if bbox is not None:
+        img[int(bbox[1]): int(bbox[3]), int(bbox[0]): int(bbox[2])] = (0, 0, 0)
+
+    ret_img = np.bitwise_or(img, upscaled_img)
+
+    # doesnt fully work not doing how i like it make sure to look into this and fix
+
+    return ret_img
 
 
