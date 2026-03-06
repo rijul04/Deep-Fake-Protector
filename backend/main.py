@@ -63,11 +63,8 @@ async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", fil
     elif retType == "BLURRED":
         
         faces_with_metadata = detect_faces_with_metadata(cv2_img)
-        # breakpoint()
 
         faces = [{"image": cv2.cvtColor(fwmd["image"], cv2.COLOR_BGR2RGB), "metadata": fwmd["metadata"]} for fwmd in faces_with_metadata]
-
-        # breakpoint()
 
         predictions = [{"prediction": predictv2(fwmd["image"]), "metadata": clean_metadata(fwmd["metadata"])} for fwmd in faces]
 
@@ -137,7 +134,7 @@ def blur(img: cv2.typing.MatLike, bbox: List | None = None):
             )
 
 
-            filtered_point = np.sum(specificImg * guassian_blur_filter[:, :, None], axis=(0,1)) / np.sum(guassian_blur_filter) # will possobily need normalising and so on for this
+            filtered_point = np.sum(specificImg * guassian_blur_filter[:, :, None], axis=(0,1)) / np.sum(guassian_blur_filter)
 
             blurred_img[h][w] = filtered_point
         
