@@ -134,6 +134,8 @@ General Pipeline:
 - How FaceForensics seems to generally use older pipelines for deep faking so more obvious in the sense of more artifacts and so on so is fine for baseline but will need to change it and can compare versions and data sets and so on
 - Using croped face images or full iamges for training and  why
 - Different Blur methods (if my method better than generic ones like np/cv2 ones)
+- Need to understand how the face embeddings work
+- Need to add normalisation/allignment for the face embeddings
 
 **Would Like to try manuualy code all of these things but for now use pre build**
 
@@ -179,3 +181,6 @@ Going to see if after Efficient Net I can just directly blur the images using op
 
 <!-- Setting up ArcFace -->
 1) Identity Vectors to be stored so will use SQLITE for now but make sure to get dev ready stuff so use an actual cloud storage platform
+2) set up file "database.py" for Identity_Vector model to hold embeddings
+3) set up embed_faces.py to use face_recog from insight face which will return face embeddings
+4) Need to add normalisation/allignment for the face embeddings

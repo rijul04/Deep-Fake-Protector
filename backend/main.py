@@ -5,15 +5,26 @@ import cv2
 from fastapi import FastAPI, Response
 import numpy as np
 from pydantic import BaseModel
+from sqlmodel import Session
+from face_recognition.embed_faces import embed_faces
 from face_recognition.detect_faces import detect_faces, detect_faces_with_metadata
 from deep_fake_analysis.predict import predictv2
-from fastapi.responses import FileResponse
+from databases.database import Identity_Vector, create_db_and_tables, create_identity_vector, read_identity_vector, router
 
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, File, UploadFile
 
 
-app = FastAPI()
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
+
+    
+app = FastAPI(lifespan=lifespan)
+app.include_router(router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,6 +33,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+    # I Think yield means wait till shutdown so below it is shutdown events?
 
 
 class Item(BaseModel):
@@ -38,13 +52,36 @@ class Prediction():
 def read_root():
     return {"Hello": "World"}
 
-# Source - https://stackoverflow.com/a/68287488
-# Posted by fchancel
-# Retrieved 2026-03-04, License - CC BY-SA 4.0
 
-from fastapi import FastAPI, File, UploadFile
 
-@app.post("/uploadfile/{retType}")
+
+
+@app.post("/person_face_image")
+async def read_root(file: UploadFile = File(...)):
+
+     # file gets sent as bytes so read and stored in contents then converted into a int8 array then decode converts into correct shape
+    contents = await file.read()
+    nparr = np.frombuffer(contents, np.uint8)
+    cv2_img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+    cv2_faces = detect_faces(cv2_img)
+
+    faces = [cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB) for image_bgr in cv2_faces]
+    for face in faces:
+        embedded_face = embed_faces(face)
+        if embedded_face is None:
+            return {"No Face"}
+        
+        identity_vector = Identity_Vector(embedding=embedded_face.tobytes())
+        create_identity_vector(identity_vector)
+
+    return {"Hello": "World"}
+
+
+
+
+
+@app.post("/deepfake_image/{retType}")
 async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", file: UploadFile = File(...)):
 
     # file gets sent as bytes so read and stored in contents then converted into a int8 array then decode converts into correct shape
@@ -70,6 +107,14 @@ async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", fil
 
         positive_predictions = [prediction for prediction in predictions if prediction["prediction"]["prediction"] == "FAKE"]
 
+        # Add user_image embeddings here
+        
+        list_identitiy_vectors = [iv.embedding for iv in read_identity_vector()]
+        identity_vectors_list = [{"image": embed_faces(face["image"]), "metadata": face["metadata"]} for face in faces] # add if statement here to check cosine similarity method or so on
+        breakpoint()
+
+        # User_image embeddings above
+
         img_copy = cv2_img.copy()
         for prediction in positive_predictions:
             img_copy = blur(img_copy, prediction["metadata"]["bbox"])
@@ -79,6 +124,9 @@ async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", fil
         encoded_img = base64.b64encode(encoded_img)
 
         return {"predictions": predictions, "image": encoded_img}
+    
+
+
 
 
 # helper func to clean passed back meta data to allow the dict to become json seriable

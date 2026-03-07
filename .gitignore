@@ -83,3 +83,5 @@ dist/
 # datasets
 # data/
 # datasets/
+
+*.db
