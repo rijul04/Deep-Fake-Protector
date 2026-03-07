@@ -3,7 +3,7 @@ import Card from "./Card";
 
 type Props = {
     oldImg: string;
-    newImg: string;
+    newImg: string | undefined;
 
     predictions: {
         prediction: "FAKE" | "REAL";
@@ -29,7 +29,7 @@ export default function ReturnViewer({oldImg, newImg, predictions, thresholdLeve
             <h4>Image Preview</h4>
             <Stack direction={{ base: "column", md: "row" }} gap={"2rem"}>
                 <img src={oldImg} />
-                <img src={`data:image/png;base64,${newImg}`} />
+                {newImg && <img src={`data:image/png;base64,${newImg}`} />}
             </Stack>
         </Card>
 

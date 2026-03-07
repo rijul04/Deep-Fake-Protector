@@ -187,7 +187,7 @@ export default function Home() {
       </form>
       {/* {image ? <img src={`data:image/png;base64,${image}`} /> : <></>} */}
       
-      {response && previewUrl ? <ReturnViewer oldImg={previewUrl} newImg={response.image} predictions={Array.isArray(response.predictions) ? response.predictions.map((pred: any) => pred.prediction) : [response.predictions]} thresholdLevel={0.6}/> : <></> }
+      {response && previewUrl ? <ReturnViewer oldImg={previewUrl} newImg={response.image ?? undefined} predictions={Array.isArray(response.predictions) ? response.predictions.map((pred: any) => pred.prediction) : [response.predictions]} thresholdLevel={0.6}/> : <></> }
     </div>
   )
 }

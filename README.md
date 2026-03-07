@@ -137,6 +137,7 @@ General Pipeline:
 - Need to understand how the face embeddings work
 - Need to add normalisation/allignment for the face embeddings
 - Add Tests
+- Dynamically lower the similarity threshold when deepfake confidence is high:
 
 **Would Like to try manuualy code all of these things but for now use pre build**
 
