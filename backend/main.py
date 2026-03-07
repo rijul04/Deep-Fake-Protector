@@ -110,14 +110,16 @@ async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", fil
         # Add user_image embeddings here
         
         list_identitiy_vectors = [iv.embedding for iv in read_identity_vector()]
-        identity_vectors_list = [{"image": embed_faces(face["image"]), "metadata": face["metadata"]} for face in faces] # add if statement here to check cosine similarity method or so on
+        identity_vectors_list = [{"image": embed_faces(face["image"]), "metadata": face["metadata"]} for face in faces if embed_faces(face["image"]) in list_identitiy_vectors] # add if statement here to check cosine similarity method or so on
         breakpoint()
+
+        to_blur_list = positive_predictions + identity_vectors_list
 
         # User_image embeddings above
 
         img_copy = cv2_img.copy()
-        for prediction in positive_predictions:
-            img_copy = blur(img_copy, prediction["metadata"]["bbox"])
+        for face in to_blur_list:
+            img_copy = blur(img_copy, face["metadata"]["bbox"])
 
         _, encoded_img = cv2.imencode('.PNG', img_copy)
 
