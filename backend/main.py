@@ -85,7 +85,7 @@ async def read_root(file: UploadFile = File(...)):
 
 
 @app.post("/deepfake_image/{retType}")
-async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", file: UploadFile = File(...)):
+async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", file: UploadFile = File(...), threshold: float = 0.6):
 
     # file gets sent as bytes so read and stored in contents then converted into a int8 array then decode converts into correct shape
     contents = await file.read()
@@ -112,8 +112,7 @@ async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", fil
 
         # Add user_image embeddings here
         
-        identity_vectors_list = [{"image": embed_faces(face["image"]), "metadata": face["metadata"]} for face in faces if iv_cosine_similarity(embed_faces(face["image"])) ] # add if statement here to check cosine similarity method or so on
-        breakpoint()
+        identity_vectors_list = [{"image": embed_faces(face["image"]), "metadata": face["metadata"]} for face in faces if iv_cosine_similarity(embed_faces(face["image"]), threshold) ] # add if statement here to check cosine similarity method or so on
 
         to_blur_list = positive_predictions + identity_vectors_list
 

@@ -136,6 +136,7 @@ General Pipeline:
 - Different Blur methods (if my method better than generic ones like np/cv2 ones)
 - Need to understand how the face embeddings work
 - Need to add normalisation/allignment for the face embeddings
+- Add Tests
 
 **Would Like to try manuualy code all of these things but for now use pre build**
 
