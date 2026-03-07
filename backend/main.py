@@ -6,6 +6,7 @@ from fastapi import FastAPI, Response
 import numpy as np
 from pydantic import BaseModel
 from sqlmodel import Session
+from face_recognition.similarity import iv_cosine_similarity
 from face_recognition.embed_faces import embed_faces
 from face_recognition.detect_faces import detect_faces, detect_faces_with_metadata
 from deep_fake_analysis.predict import predictv2
@@ -75,6 +76,8 @@ async def read_root(file: UploadFile = File(...)):
         identity_vector = Identity_Vector(embedding=embedded_face.tobytes())
         create_identity_vector(identity_vector)
 
+        breakpoint()
+
     return {"Hello": "World"}
 
 
@@ -109,8 +112,7 @@ async def create_upload_file(retType: Literal["BASIC", "BLURRED"] = "BASIC", fil
 
         # Add user_image embeddings here
         
-        list_identitiy_vectors = [iv.embedding for iv in read_identity_vector()]
-        identity_vectors_list = [{"image": embed_faces(face["image"]), "metadata": face["metadata"]} for face in faces if embed_faces(face["image"]) in list_identitiy_vectors] # add if statement here to check cosine similarity method or so on
+        identity_vectors_list = [{"image": embed_faces(face["image"]), "metadata": face["metadata"]} for face in faces if iv_cosine_similarity(embed_faces(face["image"])) ] # add if statement here to check cosine similarity method or so on
         breakpoint()
 
         to_blur_list = positive_predictions + identity_vectors_list
