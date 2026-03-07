@@ -1,8 +1,7 @@
 export { HTTPValidationErrorSchema } from "./HTTPValidationErrorSchema.ts";
-export { bodyCreateUploadFileUploadfilePostSchema } from "./bodyCreateUploadFileUploadfilePostSchema.ts";
-export { createUploadFileUploadfilePost200Schema, createUploadFileUploadfilePost422Schema, createUploadFileUploadfilePostMutationRequestSchema, createUploadFileUploadfilePostMutationResponseSchema } from "./createUploadFileUploadfilePostSchema.ts";
-export { itemSchema } from "./itemSchema.ts";
-export { readItemItemsItemIdGet200Schema, readItemItemsItemIdGet422Schema, readItemItemsItemIdGetPathParamsSchema, readItemItemsItemIdGetQueryParamsSchema, readItemItemsItemIdGetQueryResponseSchema } from "./readItemItemsItemIdGetSchema.ts";
+export { bodyCreateUploadFileDeepfakeImageRetTypePostSchema } from "./bodyCreateUploadFileDeepfakeImageRetTypePostSchema.ts";
+export { bodyReadRootPersonFaceImagePostSchema } from "./bodyReadRootPersonFaceImagePostSchema.ts";
+export { createUploadFileDeepfakeImageRetTypePost200Schema, createUploadFileDeepfakeImageRetTypePost422Schema, createUploadFileDeepfakeImageRetTypePostMutationRequestSchema, createUploadFileDeepfakeImageRetTypePostMutationResponseSchema, createUploadFileDeepfakeImageRetTypePostPathParamsSchema } from "./createUploadFileDeepfakeImageRetTypePostSchema.ts";
 export { readRootGet200Schema, readRootGetQueryResponseSchema } from "./readRootGetSchema.ts";
-export { updateItemItemsItemIdPut200Schema, updateItemItemsItemIdPut422Schema, updateItemItemsItemIdPutMutationRequestSchema, updateItemItemsItemIdPutMutationResponseSchema, updateItemItemsItemIdPutPathParamsSchema } from "./updateItemItemsItemIdPutSchema.ts";
+export { readRootPersonFaceImagePost200Schema, readRootPersonFaceImagePost422Schema, readRootPersonFaceImagePostMutationRequestSchema, readRootPersonFaceImagePostMutationResponseSchema } from "./readRootPersonFaceImagePostSchema.ts";
 export { validationErrorSchema } from "./validationErrorSchema.ts";

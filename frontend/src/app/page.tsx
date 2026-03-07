@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
-import { BodyCreateUploadFileUploadfilePost, useCreateUploadFileUploadfilePost } from "../../gen";
-import { Shield } from "lucide-react";
+import { CreateUploadFileDeepfakeImageRetTypePostMutationRequest, CreateUploadFileDeepfakeImageRetTypePostPathParams, useCreateUploadFileDeepfakeImageRetTypePost } from "../../gen";
+import { Eye, Shield } from "lucide-react";
 import {
   FormErrorMessage,
   FormLabel,
@@ -19,12 +19,21 @@ import {
 } from "@chakra-ui/react";
 
 import { Upload, X } from "lucide-react";
+import Card from "@/components/Card";
+import InsideCard from "@/components/InsideCard";
+import ReturnViewer from "@/components/ReturnViewer";
 
+type FormType = {
+  retType: CreateUploadFileDeepfakeImageRetTypePostPathParams["retType"];
+  file: FileList;
+}
 
 export default function Home() {
-  const uploadMutation = useCreateUploadFileUploadfilePost();
+  const uploadMutation = useCreateUploadFileDeepfakeImageRetTypePost();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [name, setName] = useState("");
+  const [response, setResponse] = useState<any | undefined>(undefined);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   // Form Setup Below with React Hook Form + Using ChakraUi to design the stuff
   const {
     control,
@@ -32,7 +41,7 @@ export default function Home() {
     handleSubmit,
     register,
     formState: { errors, isSubmitting }
-  } = useForm<{ file: FileList }>();
+  } = useForm<FormType>();
 
 
   const { ref, onChange, ...rest } = register("file", {
@@ -42,6 +51,7 @@ export default function Home() {
 
   const clear = () => {
     setName("");
+    setPreviewUrl(null);
     setValue("file", null as any);
     if (inputRef.current) inputRef.current.value = "";
   };
@@ -55,13 +65,24 @@ export default function Home() {
   //   uploadMutation.mutate({ data: body });
   // };
 
-  const onSubmit: SubmitHandler<{ file: FileList }> = (data) => {
-    const file = data.file?.[0];
+  const onSubmit: SubmitHandler<FormType> = (formData) => {
+    // const data = formData.data;
+    // if (!data) return;
+
+    // const body = { data };
+    const file = formData.file?.[0];
     if (!file) return;
 
-    const body = { file };
-    uploadMutation.mutate({ data: body });
+    
+
+    uploadMutation.mutate({ data: {file}, retType: formData.retType  ? "BLURRED" : "BASIC"}, {
+      onSuccess: (response) => setResponse(response ?? null)
+    });
   };
+
+  // useEffect(() => {
+
+  // }, [uploadMutation])
 
 
   return (
@@ -91,7 +112,14 @@ export default function Home() {
                   ref={(el) => { ref(el); inputRef.current = el; }}
                   onChange={(e) => {
                     onChange(e);
-                    setName(e.target.files?.[0]?.name ?? "");
+                    const file = e.target.files?.[0];
+                    setName(file?.name ?? "");
+                    if (file) {
+                      const url = URL.createObjectURL(file);
+                      setPreviewUrl(url);
+                    } else {
+                      setPreviewUrl(null);
+                    }
                   }}
               />
 
@@ -126,16 +154,40 @@ export default function Home() {
                 </VStack>
               </Box>
             </div>
-            </div>
-          {/* above for file input */}
+            {/* above for file input */}
+            {/*Below for other form inputs  */}
+            <Card>
+              <div className={styles.horizontalFlexBox}>
+                <Shield className={styles.sIcon} />
+                <h4 className={styles.subTitle}>Protection Options</h4>
+              </div>
+              <InsideCard>
+                <div className={styles.horizontalFlexBox}>
+                  <Eye className={styles.sIcon} />
+                  <h5 className={styles.subTitle}>Apply Blur</h5>
+
+                  <label className={styles.switch}>
+                    <input type="checkbox" {...register("retType")} />
+                    <span className={styles.slider}></span>
+                  </label>
+                </div>
+                {/* <p>Return Image with blur effect</p> */}
+                  
+              </InsideCard>
+            </Card>
+          </div>
           {/* <FormErrorMessage>
             {errors.file && errors.file.message}
           </FormErrorMessage> */}
+
         </FormControl>
         <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
           Submit
         </Button>
       </form>
+      {/* {image ? <img src={`data:image/png;base64,${image}`} /> : <></>} */}
+      
+      {response && previewUrl ? <ReturnViewer oldImg={previewUrl} newImg={response.image} predictions={Array.isArray(response.predictions) ? response.predictions.map((pred: any) => pred.prediction) : [response.predictions]} thresholdLevel={0.6}/> : <></> }
     </div>
   )
 }

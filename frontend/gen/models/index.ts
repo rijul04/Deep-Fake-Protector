@@ -1,8 +1,8 @@
-export type { BodyCreateUploadFileUploadfilePost } from "./BodyCreateUploadFileUploadfilePost.ts";
-export type { CreateUploadFileUploadfilePost200, CreateUploadFileUploadfilePost422, CreateUploadFileUploadfilePostMutation, CreateUploadFileUploadfilePostMutationRequest, CreateUploadFileUploadfilePostMutationResponse } from "./CreateUploadFileUploadfilePost.ts";
+export type { BodyCreateUploadFileDeepfakeImageRetTypePost } from "./BodyCreateUploadFileDeepfakeImageRetTypePost.ts";
+export type { BodyReadRootPersonFaceImagePost } from "./BodyReadRootPersonFaceImagePost.ts";
+export type { CreateUploadFileDeepfakeImageRetTypePost200, CreateUploadFileDeepfakeImageRetTypePost422, CreateUploadFileDeepfakeImageRetTypePostMutation, CreateUploadFileDeepfakeImageRetTypePostMutationRequest, CreateUploadFileDeepfakeImageRetTypePostMutationResponse, CreateUploadFileDeepfakeImageRetTypePostPathParams, CreateUploadFileDeepfakeImageRetTypePostPathParamsRetTypeEnumKey } from "./CreateUploadFileDeepfakeImageRetTypePost.ts";
 export type { HTTPValidationError } from "./HTTPValidationError.ts";
-export type { Item } from "./Item.ts";
-export type { ReadItemItemsItemIdGet200, ReadItemItemsItemIdGet422, ReadItemItemsItemIdGetPathParams, ReadItemItemsItemIdGetQuery, ReadItemItemsItemIdGetQueryParams, ReadItemItemsItemIdGetQueryResponse } from "./ReadItemItemsItemIdGet.ts";
 export type { ReadRootGet200, ReadRootGetQuery, ReadRootGetQueryResponse } from "./ReadRootGet.ts";
-export type { UpdateItemItemsItemIdPut200, UpdateItemItemsItemIdPut422, UpdateItemItemsItemIdPutMutation, UpdateItemItemsItemIdPutMutationRequest, UpdateItemItemsItemIdPutMutationResponse, UpdateItemItemsItemIdPutPathParams } from "./UpdateItemItemsItemIdPut.ts";
+export type { ReadRootPersonFaceImagePost200, ReadRootPersonFaceImagePost422, ReadRootPersonFaceImagePostMutation, ReadRootPersonFaceImagePostMutationRequest, ReadRootPersonFaceImagePostMutationResponse } from "./ReadRootPersonFaceImagePost.ts";
 export type { ValidationError } from "./ValidationError.ts";
+export { createUploadFileDeepfakeImageRetTypePostPathParamsRetTypeEnum } from "./CreateUploadFileDeepfakeImageRetTypePost.ts";

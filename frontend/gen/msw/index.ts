@@ -1,4 +1,3 @@
-export { createUploadFileUploadfilePostHandler, createUploadFileUploadfilePostHandlerResponse200, createUploadFileUploadfilePostHandlerResponse422 } from "./createUploadFileUploadfilePostHandler.ts";
-export { readItemItemsItemIdGetHandler, readItemItemsItemIdGetHandlerResponse200, readItemItemsItemIdGetHandlerResponse422 } from "./readItemItemsItemIdGetHandler.ts";
+export { createUploadFileDeepfakeImageRetTypePostHandler, createUploadFileDeepfakeImageRetTypePostHandlerResponse200, createUploadFileDeepfakeImageRetTypePostHandlerResponse422 } from "./createUploadFileDeepfakeImageRetTypePostHandler.ts";
 export { readRootGetHandler, readRootGetHandlerResponse200 } from "./readRootGetHandler.ts";
-export { updateItemItemsItemIdPutHandler, updateItemItemsItemIdPutHandlerResponse200, updateItemItemsItemIdPutHandlerResponse422 } from "./updateItemItemsItemIdPutHandler.ts";
+export { readRootPersonFaceImagePostHandler, readRootPersonFaceImagePostHandlerResponse200, readRootPersonFaceImagePostHandlerResponse422 } from "./readRootPersonFaceImagePostHandler.ts";

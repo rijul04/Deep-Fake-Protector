@@ -1,1 +1,0 @@
-{"properties":{"file":{"type":"string","contentMediaType":"application/octet-stream","title":"File"}},"type":"object","required":["file"],"title":"Body_create_upload_file_uploadfile__post","x-readme-ref-name":"Body_create_upload_file_uploadfile__post"}

@@ -1,4 +1,3 @@
-export { createUploadFileUploadfilePost } from "./createUploadFileUploadfilePost.ts";
-export { readItemItemsItemIdGet } from "./readItemItemsItemIdGet.ts";
+export { createUploadFileDeepfakeImageRetTypePost } from "./createUploadFileDeepfakeImageRetTypePost.ts";
 export { readRootGet } from "./readRootGet.ts";
-export { updateItemItemsItemIdPut } from "./updateItemItemsItemIdPut.ts";
+export { readRootPersonFaceImagePost } from "./readRootPersonFaceImagePost.ts";

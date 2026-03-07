@@ -5,6 +5,6 @@
 
 import { z } from "zod/v4";
 
-export const bodyCreateUploadFileUploadfilePostSchema = z.object({
+export const bodyCreateUploadFileDeepfakeImageRetTypePostSchema = z.object({
     "file": z.instanceof(File)
     })

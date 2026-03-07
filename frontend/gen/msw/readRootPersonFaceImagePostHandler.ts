@@ -3,10 +3,10 @@
 * Do not edit manually.
 */
 
-import type { ReadItemItemsItemIdGetQueryResponse, ReadItemItemsItemIdGet422 } from "../models/ReadItemItemsItemIdGet.ts";
+import type { ReadRootPersonFaceImagePostMutationResponse, ReadRootPersonFaceImagePost422 } from "../models/ReadRootPersonFaceImagePost.ts";
 import { http } from "msw";
 
-export function readItemItemsItemIdGetHandlerResponse200(data: ReadItemItemsItemIdGetQueryResponse) {
+export function readRootPersonFaceImagePostHandlerResponse200(data: ReadRootPersonFaceImagePostMutationResponse) {
 
       return new Response(JSON.stringify(data), {
         status: 200,
@@ -16,7 +16,7 @@ export function readItemItemsItemIdGetHandlerResponse200(data: ReadItemItemsItem
       })
 }
 
-export function readItemItemsItemIdGetHandlerResponse422(data: ReadItemItemsItemIdGet422) {
+export function readRootPersonFaceImagePostHandlerResponse422(data: ReadRootPersonFaceImagePost422) {
 
       return new Response(JSON.stringify(data), {
         status: 422,
@@ -26,10 +26,10 @@ export function readItemItemsItemIdGetHandlerResponse422(data: ReadItemItemsItem
       })
 }
 
-export function readItemItemsItemIdGetHandler(data?: ReadItemItemsItemIdGetQueryResponse | ((
-        info: Parameters<Parameters<typeof http.get>[1]>[0],
+export function readRootPersonFaceImagePostHandler(data?: ReadRootPersonFaceImagePostMutationResponse | ((
+        info: Parameters<Parameters<typeof http.post>[1]>[0],
       ) => Response | Promise<Response>)) {
-  return http.get(`/items/:item_id`, function handler(info) {
+  return http.post(`/person_face_image`, function handler(info) {
       if(typeof data === 'function') return data(info)
 
       return new Response(JSON.stringify(data), {

@@ -3,10 +3,10 @@
 * Do not edit manually.
 */
 
-import type { CreateUploadFileUploadfilePostMutationResponse, CreateUploadFileUploadfilePost422 } from "../models/CreateUploadFileUploadfilePost.ts";
+import type { CreateUploadFileDeepfakeImageRetTypePostMutationResponse, CreateUploadFileDeepfakeImageRetTypePost422 } from "../models/CreateUploadFileDeepfakeImageRetTypePost.ts";
 import { http } from "msw";
 
-export function createUploadFileUploadfilePostHandlerResponse200(data: CreateUploadFileUploadfilePostMutationResponse) {
+export function createUploadFileDeepfakeImageRetTypePostHandlerResponse200(data: CreateUploadFileDeepfakeImageRetTypePostMutationResponse) {
 
       return new Response(JSON.stringify(data), {
         status: 200,
@@ -16,7 +16,7 @@ export function createUploadFileUploadfilePostHandlerResponse200(data: CreateUpl
       })
 }
 
-export function createUploadFileUploadfilePostHandlerResponse422(data: CreateUploadFileUploadfilePost422) {
+export function createUploadFileDeepfakeImageRetTypePostHandlerResponse422(data: CreateUploadFileDeepfakeImageRetTypePost422) {
 
       return new Response(JSON.stringify(data), {
         status: 422,
@@ -26,10 +26,10 @@ export function createUploadFileUploadfilePostHandlerResponse422(data: CreateUpl
       })
 }
 
-export function createUploadFileUploadfilePostHandler(data?: CreateUploadFileUploadfilePostMutationResponse | ((
+export function createUploadFileDeepfakeImageRetTypePostHandler(data?: CreateUploadFileDeepfakeImageRetTypePostMutationResponse | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
       ) => Response | Promise<Response>)) {
-  return http.post(`/uploadfile/`, function handler(info) {
+  return http.post(`/deepfake_image/:retType`, function handler(info) {
       if(typeof data === 'function') return data(info)
 
       return new Response(JSON.stringify(data), {

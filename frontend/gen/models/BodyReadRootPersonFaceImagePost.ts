@@ -5,9 +5,9 @@
 
 
 /**
- * Body_create_upload_file_uploadfile__post
+ * Body_read_root_person_face_image_post
 */
-export type BodyCreateUploadFileUploadfilePost = {
+export type BodyReadRootPersonFaceImagePost = {
     /**
      * @type string
     */
