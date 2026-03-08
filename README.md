@@ -156,6 +156,7 @@ General Pipeline:
 11) Maybe for training and evaluation need to use something that grabs just the face, unless whole image is usefull need to research!!!!! (Step 10 from pdf file plot confusion matrix and so on of current modedl and future ones)
 12) Have just now used RetinaFace to take the faces of people from the frames which is to be trained for next model for deep fake analysis
 13) Using CDF data to test the deepfakes on version 0
+14) v0 caused catastrophic forgetting, need to implement two phase training
 
 <!-- Setting Up FastAPI -->
 1) Setting up to get to work with DeepFakeAnalysis
