@@ -33,7 +33,7 @@ transform = transforms.Compose([
                          [0.229, 0.224, 0.225])
 ])
 
-dataset    = datasets.ImageFolder("ff_data/data/", transform=transform)
+dataset    = datasets.ImageFolder("ff_data/data/faces", transform=transform)
 train_size = int(0.8 * len(dataset))
 val_size   = len(dataset) - train_size
 train_data, val_data = torch.utils.data.random_split(dataset, [train_size, val_size])
