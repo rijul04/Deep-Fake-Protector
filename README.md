@@ -155,6 +155,7 @@ General Pipeline:
 10) If possible also use face2face dataset from faceforensics too as transfers facial expressions from one face to another
 11) Maybe for training and evaluation need to use something that grabs just the face, unless whole image is usefull need to research!!!!! (Step 10 from pdf file plot confusion matrix and so on of current modedl and future ones)
 12) Have just now used RetinaFace to take the faces of people from the frames which is to be trained for next model for deep fake analysis
+13) Using CDF data to test the deepfakes on version 0
 
 <!-- Setting Up FastAPI -->
 1) Setting up to get to work with DeepFakeAnalysis
@@ -186,3 +187,33 @@ Going to see if after Efficient Net I can just directly blur the images using op
 2) set up file "database.py" for Identity_Vector model to hold embeddings
 3) set up embed_faces.py to use face_recog from insight face which will return face embeddings
 4) Need to add normalisation/allignment for the face embeddings
+
+
+
+
+<!-- Version 0 DeepFake Model Scoring -->
+4@DESKTOP-1JLBHQP:~/Deep-Fake-Protector/backend/deep_fake_analysis$ python model_scoring.py 
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 313/313 [00:18<00:00, 17.35it/s]
+==================================================
+BASELINE MODEL EVALUATION
+==================================================
+Accuracy:  0.5309  (53.1%)
+F1 Score:  0.4339
+AUC:       0.5964
+Precision: 0.6794
+Recall:    0.1170
+
+Confusion Matrix:
+               Predicted Real  Predicted Fake
+Actual Real    4724            276
+Actual Fake    4415            585
+
+Full Report:
+              precision    recall  f1-score   support
+
+        real       0.52      0.94      0.67      5000
+        fake       0.68      0.12      0.20      5000
+
+    accuracy                           0.53     10000
+   macro avg       0.60      0.53      0.43     10000
+weighted avg       0.60      0.53      0.43     10000

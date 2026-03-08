@@ -60,7 +60,7 @@ def predictv2(image: cv2.typing.MatLike):
 
     return {
         "prediction": labels[pred],
-        "confidence": str(probs[0][pred].item() * 100) + "%",
+        "confidence": round(probs[0][pred].item() * 100, 2),
     }
 
 # Test it

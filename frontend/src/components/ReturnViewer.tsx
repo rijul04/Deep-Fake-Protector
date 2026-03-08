@@ -18,7 +18,7 @@ export default function ReturnViewer({oldImg, newImg, predictions, thresholdLeve
     //  do the below here for now but shld be dont in backend as return
     let totalPred = 0;
     predictions.forEach((pred) => {
-        totalPred += Number(parseFloat(pred.confidence.replace("%", "")).toFixed(2));
+        totalPred += Number(parseFloat(pred.confidence).toFixed(2));
     })
 
     const averagePred = totalPred / predictions.length
