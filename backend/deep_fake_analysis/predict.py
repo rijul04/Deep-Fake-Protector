@@ -10,12 +10,12 @@ from PIL import Image
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-MODEL_PATH = HERE / "efficientnet_v2s_deepfake.pt"   # adjust name/location if needed
+MODEL_PATH = HERE / "efficientnet_v2m_deepfake_v2.pt"   # adjust name/location if needed
 
 
 # Load model
 device = torch.device("cuda")
-model  = models.efficientnet_v2_s(weights=None)
+model  = models.efficientnet_v2_m(weights=None)
 model.classifier[1] = nn.Linear(model.classifier[1].in_features, 2)
 model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 model = model.to(device)
